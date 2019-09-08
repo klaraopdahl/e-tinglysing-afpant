@@ -132,6 +132,7 @@
 						<xsl:apply-templates select="intensjonfrabank"/>
 						<xsl:apply-templates select="intensjonssvarframegler"/>
 						<xsl:apply-templates select="intensjonsendring"/>
+						<xsl:apply-templates select="etinglysingstatusframegler"/>
 					</div>
 				</div>
 			</body>
@@ -165,6 +166,9 @@
 		</xsl:if>
 		<xsl:if test="intensjonsendring">
 			<xsl:text>Endring av tinglysingsmetode</xsl:text>
+		</xsl:if>
+		<xsl:if test="etinglysingstatusframegler">
+			<xsl:text>E-Tinglysing gjennomført</xsl:text>
 		</xsl:if>
 	</xsl:template>
 
@@ -279,6 +283,19 @@
 		<hr/>
 	</xsl:template>
 
+	<xsl:template match="/etinglysingstatusframegler">
+		<xsl:call-template name="mottaker"/>
+		<xsl:call-template name="eiendom">
+			<xsl:with-param name="registerenhetsliste" select="registerenheter/registerenhet"/>
+		</xsl:call-template>
+		<xsl:call-template name="megler"/>
+		<xsl:call-template name="parter"/>
+		<xsl:call-template name="etinglysingstatusframegler"/>
+		<xsl:call-template name="ressurser"/>
+		<xsl:call-template name="avsender"/>
+		<hr/>
+	</xsl:template>
+
 	<xsl:template name="intensjonfrabank">
 		<div class="hovedseksjon">
 			<xsl:call-template name="seksjon">
@@ -355,6 +372,31 @@
 			</div>
 		</div>
 	</xsl:template>
+
+	<xsl:template name="etinglysingstatusframegler">
+		<div class="hovedseksjon">
+			<xsl:call-template name="seksjon">
+				<xsl:with-param name="tittel" select="'E-Tinglysing gjennomført'"/>
+			</xsl:call-template>
+			<div class="tabell innhold">
+				<div class="kropp">
+					<div class="rad">
+						<div class="celle kol1">
+							<xsl:text>E-tinglysing av deres pantedokument er gjennomført pr.</xsl:text>
+						</div>
+						<div class="celle">
+							<b>
+								<xsl:call-template name="tiddato">
+									<xsl:with-param name="dato" select="etinglysingsdetaljer/tinglysingutfort"/>
+								</xsl:call-template>
+							</b>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</xsl:template>
+
 
 	<xsl:template name="saldoforespoersel">
 		<div class="hovedseksjon">
@@ -1290,5 +1332,19 @@
 		<xsl:if test="intensjonsendring">
 			<xsl:text>Endring av tinglysingsmetode</xsl:text>
 		</xsl:if>
+		<xsl:if test="etinglysingstatusframegler">
+			<xsl:text>E-tinglysing gjennomført</xsl:text>
+		</xsl:if>
 	</xsl:template>
-</xsl:stylesheet>
+</xsl:stylesheet><!-- Stylus Studio meta-information - (c) 2004-2007. Progress Software Corporation. All rights reserved.
+
+<metaInformation>
+	<scenarios/>
+	<MapperMetaTag>
+		<MapperInfo srcSchemaPathIsRelative="yes" srcSchemaInterpretAsXML="no" destSchemaPath="" destSchemaRoot="" destSchemaPathIsRelative="yes" destSchemaInterpretAsXML="no"/>
+		<MapperBlockPosition></MapperBlockPosition>
+		<TemplateContext></TemplateContext>
+		<MapperFilter side="source"></MapperFilter>
+	</MapperMetaTag>
+</metaInformation>
+-->

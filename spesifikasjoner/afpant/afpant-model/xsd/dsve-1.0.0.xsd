@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
 	<xs:element name="kjoepekontrakt" type="Kjoepekontrakt"/>
 	<xs:element name="kjoepekontraktsforespoersel" type="Kjoepekontraktforespoersel"/>
 	<xs:element name="saldoforespoersel" type="Saldoforespoersel"/>
@@ -9,6 +10,7 @@
 	<xs:element name="intensjonfrabank" type="IntensjonFraBank"/>
 	<xs:element name="intensjonssvarframegler" type="IntensjonssvarFraMegler"/>
 	<xs:element name="intensjonsendring" type="Intensjonsendring"/>
+	<xs:element name="etinglysingstatusframegler" type="EtinglysingStatusFraMegler"/>
 
 	<xs:complexType name="Kjoepekontraktforespoersel">
 		<xs:annotation>
@@ -101,8 +103,8 @@
 		<xs:annotation>
 			<xs:documentation>Endring av metode for tinglysing. Megler inkluderes kun når avsender er megler.</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>			
-			<xs:element minOccurs="1" maxOccurs="1" name="avsender" type="Avsender"/>			
+		<xs:sequence>
+			<xs:element minOccurs="1" maxOccurs="1" name="avsender" type="Avsender"/>
 			<xs:element minOccurs="0" maxOccurs="1" name="megler" type="Megler"/>
 			<xs:element minOccurs="1" maxOccurs="1" name="mottaker" type="Mottaker"/>
 			<xs:element minOccurs="1" maxOccurs="1" name="parter" type="Parter"/>
@@ -116,7 +118,7 @@
 		<xs:annotation>
 			<xs:documentation>Forespørsel om metode for tinglysing</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>		
+		<xs:sequence>
 			<xs:element minOccurs="1" maxOccurs="1" name="avsender" type="Avsender"/>
 			<xs:element minOccurs="1" maxOccurs="1" name="mottaker" type="Mottaker"/>
 			<xs:element minOccurs="1" maxOccurs="1" name="kjoepere" type="Part"/>
@@ -137,6 +139,21 @@
 			<xs:element minOccurs="1" maxOccurs="1" name="parter" type="Parter"/>
 			<xs:element minOccurs="1" maxOccurs="1" name="registerenheter" type="Registerenheter"/>
 			<xs:element minOccurs="1" maxOccurs="1" name="intensjonsdetaljer" type="IntensjonsdetaljerFraMegler"/>
+			<xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="EtinglysingStatusFraMegler">
+		<xs:annotation>
+			<xs:documentation>Status fra megler til bank ved gjennomført e-tinglysing av tidligere mottatt pantedokument (hjemmelsovergang + pantedokument)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="1" maxOccurs="1" name="avsender" type="Avsender"/>
+			<xs:element minOccurs="1" maxOccurs="1" name="megler" type="Megler"/>
+			<xs:element minOccurs="1" maxOccurs="1" name="mottaker" type="Mottaker"/>
+			<xs:element minOccurs="1" maxOccurs="1" name="parter" type="Parter"/>
+			<xs:element minOccurs="1" maxOccurs="1" name="registerenheter" type="Registerenheter"/>
+			<xs:element minOccurs="1" maxOccurs="1" name="etinglysingsdetaljer" type="EtinglysingsDetaljer"/>
 			<xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
 		</xs:sequence>
 	</xs:complexType>
@@ -484,6 +501,26 @@
 		</xs:complexContent>
 	</xs:complexType>
 
+	<xs:complexType name="EtinglysingsDetaljer">
+		<xs:annotation>
+			<xs:documentation>Informasjon om den gjennomførte e-tinglysingen (Kartverket forsendelsesstatus) vedlegges i payload, men kobling mellom "Altinn Senders Reference" på det tidligere mottatte pantedokumentet som nå er tinglyst og Kartverket "forsendelsstatus.tinglysingsinformasjon.dokumentinformasjon.dokumentreferanse" angis her.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dokumentkoblinger" minOccurs="1" maxOccurs="1" type="ETinglysingDokumentKoblingListe"/>
+			<xs:element name="tinglysingutfort" minOccurs="1" maxOccurs="1" type="xs:dateTime"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ETinglysingDokumentKoblingListe">
+		<xs:sequence>
+			<xs:element name="dokumentkobling" minOccurs="1" maxOccurs="unbounded" type="ETinglysingDokumentKobling"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ETinglysingDokumentKobling">
+		<xs:attribute name="altinnSendersReference" type="xs:string" use="required"/>
+		<xs:attribute name="kartverketDokumentReferanse" type="xs:string" use="required"/>
+	</xs:complexType>
 
 	<xs:complexType name="Restgjeldsdatoer">
 		<xs:sequence>
