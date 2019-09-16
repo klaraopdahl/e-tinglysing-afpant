@@ -503,7 +503,7 @@
 
 	<xs:complexType name="EtinglysingsDetaljer">
 		<xs:annotation>
-			<xs:documentation>Informasjon om den gjennomførte e-tinglysingen (Kartverket forsendelsesstatus) vedlegges i payload, men kobling mellom "Altinn Senders Reference" på det tidligere mottatte pantedokumentet som nå er tinglyst og Kartverket "forsendelsstatus.tinglysingsinformasjon.dokumentinformasjon.dokumentreferanse" angis her.</xs:documentation>
+			<xs:documentation>Informasjon om den gjennomførte e-tinglysingen (Kartverket forsendelsesstatus) vedlegges i payload, men kobling mellom "Altinn Senders Reference" på det tidligere mottatte pantedokumentet som nå er tinglyst og Kartverket "forsendelsestatus.tinglysingsinformasjon.dokumentinformasjon.dokumentreferanse" angis her.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="dokumentkoblinger" minOccurs="1" maxOccurs="1" type="ETinglysingDokumentKoblingListe"/>
