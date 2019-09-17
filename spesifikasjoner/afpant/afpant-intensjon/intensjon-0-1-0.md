@@ -29,6 +29,7 @@ Mottakere av meldingstypen "_IntensjonFraBank_" må benytte avsenders saksnummer
  
 ### Ruting (banksystem)
 - mottakende systemleverandør søker blant lånesaker hvor saksnummer matcher _IntensjonssvarFraMegler.Mottaker.Referanse_/_Intensjonsendring.Mottaker.Referanse_ og **minst 1 kjøper i forespørselen er registrert som debitor i lånesaken** 
+- mottakende systemleverandør må benytte oversikt over kjøperne i svarmeldingen (_IntensjonssvarFraMegler.Parter.Kjoepere_) til å vurdere om det er avvik mellom bankens låntakere og meglers kjøpere. Det er opp til hvert enkelt banksystem å håndtere eventuelle avvik.
 
 ## Meldingstype: IntensjonfraBank
 Benyttes av bank for å informere megler om bankens planlagte tinglysingmetode og for å motta svar fra megler om gjeldende tinglysingmetode.
