@@ -1,4 +1,4 @@
-# Saldoforespørsel
+# Restgjeldsoppgave
 
 **Mottaker**: Bank/finansieringselskap firmanavn og org.nummer
 
